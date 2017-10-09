@@ -1,5 +1,4 @@
 export class ObjectFormSerializable {
-
     public static Parse(data: any): string {
         let obj = "";
         let key: string[] = [];
@@ -41,8 +40,6 @@ export class ObjectFormSerializable {
         });
         return obj;
     }
-
-
     private static Convert(data: any, key: string[], top?: string): void {
         Object.keys(data).every(x => {
             let perfix = top != "" ? top + "." : "";
