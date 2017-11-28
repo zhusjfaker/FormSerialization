@@ -26,18 +26,35 @@ export class ObjectFormSerializable {
             this.Convert(data, key, "");
         }
         /** 获取所有key值 */
-        key.every(x => {
-            if (eval('data.' + x) === null || eval('data.' + x) === undefined) {
-                obj += "&" + x + "=";
-            }
-            else if (eval('data.' + x) != null && typeof eval('data.' + x) == "number") {
-                obj += "&" + x + "=" + eval('data.' + x);
-            }
-            else if (eval('data.' + x) != null && typeof eval('data.' + x) == "string") {
-                obj += "&" + x + "=" + encodeURI(eval('data.' + x));
-            }
-            return true;
-        });
+        if (Array.isArray(data)) {
+            key.every(x => {
+                if (eval('data' + x) === null || eval('data' + x) === undefined) {
+                    obj += "&" + x + "=";
+                }
+                else if (eval('data' + x) != null && typeof eval('data' + x) == "number") {
+                    obj += "&" + x + "=" + eval('data' + x);
+                }
+                else if (eval('data' + x) != null && typeof eval('data' + x) == "string") {
+                    obj += "&" + x + "=" + encodeURI(eval('data' + x));
+                }
+                return true;
+            });
+
+        }
+        else {
+            key.every(x => {
+                if (eval('data.' + x) === null || eval('data.' + x) === undefined) {
+                    obj += "&" + x + "=";
+                }
+                else if (eval('data.' + x) != null && typeof eval('data.' + x) == "number") {
+                    obj += "&" + x + "=" + eval('data.' + x);
+                }
+                else if (eval('data.' + x) != null && typeof eval('data.' + x) == "string") {
+                    obj += "&" + x + "=" + encodeURI(eval('data.' + x));
+                }
+                return true;
+            });
+        }
         return obj;
     }
     private static Convert(data: any, key: string[], top?: string): void {
