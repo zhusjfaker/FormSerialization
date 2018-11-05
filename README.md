@@ -6,6 +6,8 @@ Typescript about comple-Object convert to formdata.
 * 最新更新加入了对key值默认进行升序排列方便加签Md5请求
 * 最新更加加入了是否对字符串中"中文"值进行 URLENCODE 默认是true 可以改为false
 
+## 安装
+* npm i @zhusj/formdata-serizlization -S
 
 ## 代码环境
 * 无
