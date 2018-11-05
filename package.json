@@ -1,0 +1,25 @@
+{
+    "name": "@zhusj/formdata-serizlization",
+    "version": "1.0.0",
+    "description": "json to formdata",
+    "main": "index.ts",
+    "types": "types/index.d.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/zhusjfaker/FormSerialization.git"
+    },
+    "keywords": [
+        "complex of json object",
+        "complex of javascript object",
+        "convert formdata"
+    ],
+    "author": "zhusj",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/zhusjfaker/FormSerialization/issues"
+    },
+    "homepage": "https://github.com/zhusjfaker/FormSerialization#readme"
+}
