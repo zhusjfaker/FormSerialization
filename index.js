@@ -1,12 +1,9 @@
-var ObjectFormSerializable = /** @class */ (function () {
-    function ObjectFormSerializable() {
-    }
-    ObjectFormSerializable.Parse = function (data, isencode) {
-        if (isencode === void 0) { isencode = true; }
-        var obj = "";
-        var key = [];
+export class ObjectFormSerializable {
+    static Parse(data, isencode = true) {
+        let obj = "";
+        let key = [];
         if (Array.isArray(data)) {
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 switch (typeof data[i]) {
                     case "string":
                         key.push("[" + i + "]");
@@ -32,7 +29,7 @@ var ObjectFormSerializable = /** @class */ (function () {
         key.sort();
         /** 获取所有key值 */
         if (Array.isArray(data)) {
-            key.every(function (x) {
+            key.every(x => {
                 if (eval('data' + x) === null || eval('data' + x) === undefined) {
                     obj += "&" + x + "=";
                 }
@@ -46,7 +43,7 @@ var ObjectFormSerializable = /** @class */ (function () {
             });
         }
         else {
-            key.every(function (x) {
+            key.every(x => {
                 if (eval('data.' + x) === null || eval('data.' + x) === undefined) {
                     obj += "&" + x + "=";
                 }
@@ -60,11 +57,10 @@ var ObjectFormSerializable = /** @class */ (function () {
             });
         }
         return obj;
-    };
-    ObjectFormSerializable.Convert = function (data, key, top) {
-        var _this = this;
-        Object.keys(data).every(function (x) {
-            var perfix = top != "" ? top + "." : "";
+    }
+    static Convert(data, key, top) {
+        Object.keys(data).every(x => {
+            let perfix = top != "" ? top + "." : "";
             switch (typeof data[x]) {
                 case "string":
                     key.push(perfix + x);
@@ -80,7 +76,7 @@ var ObjectFormSerializable = /** @class */ (function () {
                 case "object":
                     if (data[x] != null) {
                         if (Array.isArray(data[x])) {
-                            for (var i = 0; i < data[x].length; i++) {
+                            for (let i = 0; i < data[x].length; i++) {
                                 switch (typeof data[x][i]) {
                                     case "string":
                                         key.push(perfix + x + "[" + i + "]");
@@ -89,13 +85,13 @@ var ObjectFormSerializable = /** @class */ (function () {
                                         key.push(perfix + x + "[" + i + "]");
                                         break;
                                     case "object":
-                                        _this.Convert(data[x][i], key, perfix + x + "[" + i + "]");
+                                        this.Convert(data[x][i], key, perfix + x + "[" + i + "]");
                                         break;
                                 }
                             }
                         }
                         else {
-                            _this.Convert(data[x], key, perfix + x);
+                            this.Convert(data[x], key, perfix + x);
                         }
                     }
                     else {
@@ -106,8 +102,6 @@ var ObjectFormSerializable = /** @class */ (function () {
             return true;
         });
         return;
-    };
-    return ObjectFormSerializable;
-}());
-export { ObjectFormSerializable };
+    }
+}
 //# sourceMappingURL=index.js.map
