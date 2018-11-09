@@ -1,4 +1,6 @@
-export class ObjectFormSerializable {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class ObjectFormSerializable {
     static Parse(data, isencode = true) {
         let obj = "";
         let key = [];
@@ -104,4 +106,5 @@ export class ObjectFormSerializable {
         return;
     }
 }
+exports.ObjectFormSerializable = ObjectFormSerializable;
 //# sourceMappingURL=index.js.map
