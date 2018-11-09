@@ -1,8 +1,8 @@
 {
     "name": "@zhusj/formdata-serizlization",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "json to formdata",
-    "main": "index.js",
+    "main": "index.ts",
     "types": "types/index.d.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
