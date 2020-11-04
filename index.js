@@ -1,31 +1,35 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ObjectFormSerializable = void 0;
 class ObjectFormSerializable {
     static Parse(data, isencode = true) {
-        let obj = "";
-        let key = [];
+        let obj = '';
+        const key = [];
         if (Array.isArray(data)) {
             for (let i = 0; i < data.length; i++) {
                 switch (typeof data[i]) {
-                    case "string":
-                        key.push("[" + i + "]");
+                    case 'string':
+                        key.push('[' + i + ']');
                         break;
-                    case "number":
-                        key.push("[" + i + "]");
+                    case 'number':
+                        key.push('[' + i + ']');
                         break;
-                    case "object":
+                    case 'boolean':
+                        key.push('[' + i + ']');
+                        break;
+                    case 'object':
                         if (data[i] != null) {
-                            this.Convert(data[i], key, "[" + i + "]");
+                            this.Convert(data[i], key, '[' + i + ']');
                         }
                         else {
-                            key.push("[" + i + "]");
+                            key.push('[' + i + ']');
                         }
                         break;
                 }
             }
         }
         else {
-            this.Convert(data, key, "");
+            this.Convert(data, key, '');
         }
         /** 默认按照key名称进行升序排序 */
         key.sort();
@@ -33,13 +37,27 @@ class ObjectFormSerializable {
         if (Array.isArray(data)) {
             key.every(x => {
                 if (eval('data' + x) === null || eval('data' + x) === undefined) {
-                    obj += "&" + x + "=";
+                    obj += '&' + x + '=';
                 }
-                else if (eval('data' + x) != null && typeof eval('data' + x) == "number") {
-                    obj += "&" + x + "=" + eval('data' + x);
+                else if (eval('data' + x) != null &&
+                    typeof eval('data' + x) == 'number') {
+                    obj += '&' + x + '=' + eval('data' + x);
                 }
-                else if (eval('data' + x) != null && typeof eval('data' + x) == "string") {
-                    obj += "&" + x + "=" + (isencode ? encodeURI(eval('data' + x)) : eval('data' + x));
+                else if (eval('data' + x) != null &&
+                    typeof eval('data' + x) == 'string') {
+                    obj +=
+                        '&' +
+                            x +
+                            '=' +
+                            (isencode ? encodeURI(eval('data' + x)) : eval('data' + x));
+                }
+                else if (eval('data' + x) != null &&
+                    typeof eval('data' + x) == 'boolean') {
+                    obj +=
+                        '&' +
+                            x +
+                            '=' +
+                            (isencode ? encodeURI(eval('data' + x)) : eval('data' + x));
                 }
                 return true;
             });
@@ -47,13 +65,27 @@ class ObjectFormSerializable {
         else {
             key.every(x => {
                 if (eval('data.' + x) === null || eval('data.' + x) === undefined) {
-                    obj += "&" + x + "=";
+                    obj += '&' + x + '=';
                 }
-                else if (eval('data.' + x) != null && typeof eval('data.' + x) == "number") {
-                    obj += "&" + x + "=" + eval('data.' + x);
+                else if (eval('data.' + x) != null &&
+                    typeof eval('data.' + x) == 'number') {
+                    obj += '&' + x + '=' + eval('data.' + x);
                 }
-                else if (eval('data.' + x) != null && typeof eval('data.' + x) == "string") {
-                    obj += "&" + x + "=" + (isencode ? encodeURI(eval('data.' + x)) : eval('data.' + x));
+                else if (eval('data.' + x) != null &&
+                    typeof eval('data.' + x) == 'string') {
+                    obj +=
+                        '&' +
+                            x +
+                            '=' +
+                            (isencode ? encodeURI(eval('data.' + x)) : eval('data.' + x));
+                }
+                else if (eval('data.' + x) != null &&
+                    typeof eval('data.' + x) == 'boolean') {
+                    obj +=
+                        '&' +
+                            x +
+                            '=' +
+                            (isencode ? encodeURI(eval('data.' + x)) : eval('data.' + x));
                 }
                 return true;
             });
@@ -62,42 +94,48 @@ class ObjectFormSerializable {
     }
     static Convert(data, key, top) {
         Object.keys(data).every(x => {
-            let perfix = top != "" ? top + "." : "";
+            const prefix = top != '' ? top + '.' : '';
             switch (typeof data[x]) {
-                case "string":
-                    key.push(perfix + x);
+                case 'string':
+                    key.push(prefix + x);
                     break;
-                case "number":
-                    key.push(perfix + x);
+                case 'number':
+                    key.push(prefix + x);
                     break;
-                case "function":
+                case 'boolean':
+                    key.push(prefix + x);
                     break;
-                case "undefined":
-                    key.push(perfix + x);
+                case 'function':
                     break;
-                case "object":
+                case 'undefined':
+                    key.push(prefix + x);
+                    break;
+                case 'object':
                     if (data[x] != null) {
                         if (Array.isArray(data[x])) {
                             for (let i = 0; i < data[x].length; i++) {
                                 switch (typeof data[x][i]) {
-                                    case "string":
-                                        key.push(perfix + x + "[" + i + "]");
+                                    case 'string':
+                                        key.push(prefix + x + '[' + i + ']');
                                         break;
-                                    case "number":
-                                        key.push(perfix + x + "[" + i + "]");
+                                    case 'number':
+                                        key.push(prefix + x + '[' + i + ']');
                                         break;
-                                    case "object":
-                                        this.Convert(data[x][i], key, perfix + x + "[" + i + "]");
+                                    case 'boolean':
+                                        key.push(prefix + x + '[' + i + ']');
+                                        break;
+                                    case 'object':
+                                        this.Convert(data[x][i], key, prefix + x + '[' + i + ']');
                                         break;
                                 }
                             }
                         }
                         else {
-                            this.Convert(data[x], key, perfix + x);
+                            this.Convert(data[x], key, prefix + x);
                         }
                     }
                     else {
-                        key.push(perfix + x);
+                        key.push(prefix + x);
                     }
                     break;
             }

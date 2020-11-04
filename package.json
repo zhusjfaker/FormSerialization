@@ -1,6 +1,6 @@
 {
     "name": "@zhusj/formdata-serizlization",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "json to formdata",
     "main": "index.js",
     "types": "types/index.d.ts",
